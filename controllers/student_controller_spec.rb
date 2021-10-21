@@ -28,6 +28,13 @@ RSpec.describe StudentController, type: :controller do
   end
 
   describe '#create' do
+    let(:hash) do
+      {
+        name: 'test student',
+        email: 'test@gmail.com'
+      }
+    end
+
     context 'HTML' do
       context 'valid' do
         it 'redirects to index' do
@@ -37,6 +44,7 @@ RSpec.describe StudentController, type: :controller do
           expect(response).to redirect_to student_index_path
           expect(assigns(:student)).to be_a Student
           expect(assigns(:student).persisted?).to eq true
+          expect(assigns(:student)).to have_attributes(hash)
         end
       end
       context 'invalid' do
@@ -47,6 +55,7 @@ RSpec.describe StudentController, type: :controller do
           expect(response).to render_template :new
           expect(assigns(:student)).to be_a Student
           expect(assigns(:student).persisted?).to eq false
+          expect(assigns(:student)).to have_attributes({})
         end
       end
     end
