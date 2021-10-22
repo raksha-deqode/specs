@@ -31,6 +31,12 @@ RSpec.describe Student, type: :model do
     end
   end
 
+  describe 'Association' do
+    context 'when has_many subjects' do
+      it { should have_many :subjects }
+    end
+  end
+
   #Mocking with double
   describe '#study' do
     let(:student) { double }
